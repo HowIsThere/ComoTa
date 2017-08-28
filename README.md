@@ -24,7 +24,7 @@ O usuário efetua login e tem acesso as categorias de lugares previamente cadast
 
 ### 4	RASCUNHOS BÁSICOS DA INTERFACE (MOCKUPS)<br>
 Rascunhos de interface em formato .PDF navegável disponível em:
-<https://github.com/Cassianokunsch/ComoTa/blob/master/ComoTa.pdf> </br>
+<https://github.com/Cassianokunsch/ComoTa/blob/master/HowIsThere.pdf> </br>
 
 ### 5	MODELO CONCEITUAL<br>
 #### 5.1 NOTACAO ENTIDADE RELACIONAMENTO
