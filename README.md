@@ -28,7 +28,7 @@ Rascunhos de interface em formato .PDF navegável disponível em:
 
 ### 5	MODELO CONCEITUAL<br>
 #### 5.1 NOTACAO ENTIDADE RELACIONAMENTO
-![Alt text](https://github.com/discipbd2/topicos-trabalho/blob/master/sample_MC.png?raw=true "Modelo Conceitual")
+![Alt text](https://github.com/Cassianokunsch/ComoTa/blob/master/Imagens/conceitual.jpg?raw=true "Modelo Conceitual")
     
      5.2 NOTACAO UML (Caso esteja fazendo a disciplina de Projeto)
 
@@ -48,6 +48,7 @@ Rascunhos de interface em formato .PDF navegável disponível em:
     CPF: campo que armazena o número de Cadastro de Pessoa Física para cada cliente da empresa.<br>
 
 ### 6	MODELO LÓGICO<br>
+![Alt text](https://github.com/Cassianokunsch/ComoTa/blob/master/Imagens/logico.jpg?raw=true "Modelo Lógico")
 ### 7	MODELO FÍSICO<br>
 ### 8	INSERT APLICADO NAS TABELAS DO BANCO DE DADOS<br>
 #### 8.1 DETALHAMENTO DAS INFORMAÇÕES
