@@ -130,7 +130,7 @@ Rascunhos de interface em formato .PDF navegável disponível em:
       );
 
       CREATE TABLE ImagemPessoa (
-      id_imagem_pessoa VARCHAR(10) PRIMARY KEY NOT NULL,
+      id_imagem_pessoa INTEGER PRIMARY KEY NOT NULL,
       id_imagem INTEGER NOT NULL,
       CONSTRAINT FK_id_imagem FOREIGN KEY(id_imagem) REFERENCES Imagem (id_imagem)
       );
@@ -150,7 +150,7 @@ Rascunhos de interface em formato .PDF navegável disponível em:
       login VARCHAR(20) NOT NULL,
       ativo CHAR(1) NOT NULL,
       nome_pessoa VARCHAR(255) NOT NULL,
-      id_imagem_pessoa VARCHAR(10) NOT NULL,
+      id_imagem_pessoa INTEGER NOT NULL,
       CONSTRAINT FK_id_imagem_pessoa FOREIGN KEY(id_imagem_pessoa) REFERENCES ImagemPessoa (id_imagem_pessoa)
       );
 
@@ -163,7 +163,7 @@ Rascunhos de interface em formato .PDF navegável disponível em:
       );
 
       CREATE TABLE ImagemCategoria (
-      id_imagem_categoria VARCHAR(10) PRIMARY KEY NOT NULL,
+      id_imagem_categoria INTEGER PRIMARY KEY NOT NULL,
       id_imagem INTEGER NOT NULL,
       id_categoria INTEGER NOT NULL,
       CONSTRAINT FK_id_imagem FOREIGN KEY(id_imagem) REFERENCES Imagem (id_imagem),
@@ -183,7 +183,7 @@ Rascunhos de interface em formato .PDF navegável disponível em:
       );
 
       CREATE TABLE ImagemLugar (
-      id_imagem_lugar VARCHAR(10) PRIMARY KEY NOT NULL,
+      id_imagem_lugar INTEGER PRIMARY KEY NOT NULL,
       id_imagem INTEGER NOT NULL,
       id_lugar INTEGER NOT NULL,
       CONSTRAINT FK_id_imagem FOREIGN KEY(id_imagem) REFERENCES Imagem (id_imagem),
@@ -201,7 +201,7 @@ Rascunhos de interface em formato .PDF navegável disponível em:
       );
 
       CREATE TABLE ImagemPostagem (
-      id_imagem_postagem VARCHAR(10) PRIMARY KEY NOT NULL,
+      id_imagem_postagem INTEGER PRIMARY KEY NOT NULL,
       id_imagem INTEGER NOT NULL,
       id_postagem INTEGER NOT NULL,
       CONSTRAINT FK_id_imagem FOREIGN KEY(id_imagem) REFERENCES Imagem (id_imagem),
