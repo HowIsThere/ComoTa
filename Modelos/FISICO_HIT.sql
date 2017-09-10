@@ -1,109 +1,108 @@
--- Geração de Modelo físico
+-- GeraÃ§Ã£o de Modelo fÃ­sico
 -- Sql ANSI 2003 - brModelo.
 
 
 
-CREATE TABLE Cometarios (
-id_comentario INTEGER PRIMARY KEY,
-texto TEXT,
-id_postagem INTEGER,
-id_pessoa INTEGER
-)
-
-CREATE TABLE Postagem (
-data DATETIME,
-id_postagem INTEGER PRIMARY KEY,
-postagem TEXT,
-id_lugar INTEGER,
-id_pessoa INTEGER
-)
-
 CREATE TABLE Imagem (
-id_imagem INTEGER PRIMARY KEY,
-path VARCHAR(256),
-descricao VARCHAR(256)
-)
-
-CREATE TABLE Categoria (
-id_categoria INTEGER PRIMARY KEY,
-descricao VARCHAR(256),
-nome_categoria VARCHAR(256),
-id_pessoa INTEGER
-)
-
-CREATE TABLE Lugar (
-long DECIMAL(10),
-id_lugar INTEGER PRIMARY KEY,
-lat DECIMAL(10),
-descricao VARCHAR(256),
-nome_lugar VARCHAR(256),
-id_pessoa INTEGER,
-id_categoria INTEGER,
-FOREIGN KEY(id_categoria) REFERENCES Categoria (id_categoria)
-)
-
-CREATE TABLE Avaliacao (
-id_avaliacao INTEGER PRIMARY KEY,
-nota INTEGER,
-comentario TEXT,
-id_lugar INTEGER,
-id_pessoa INTEGER,
-FOREIGN KEY(id_lugar) REFERENCES Lugar (id_lugar)
-)
-
-CREATE TABLE Pessoa (
-cep VARCHAR(8),
-bairro VARCHAR(100),
-cidade VARCHAR(100),
-estado VARCHAR(100),
-rua VARCHAR(100),
-numero VARCHAR(5),
-id_pessoa INTEGER PRIMARY KEY,
-email VARCHAR(255),
-colaboracao INTEGER,
-autenticidade INTEGER,
-senha VARCHAR(20),
-login VARCHAR(20),
-ativo CHAR(1),
-nome_pessoa VARCHAR(255),
-id_imagem_pessoa VARCHAR(10)
-)
+id_imagem INTEGER PRIMARY KEY NOT NULL,
+path VARCHAR(256) NOT NULL,
+descricao VARCHAR(256) NOT NULL
+);
 
 CREATE TABLE ImagemPessoa (
-id_imagem_pessoa VARCHAR(10) PRIMARY KEY,
-id_imagem INTEGER,
-FOREIGN KEY(id_imagem) REFERENCES Imagem (id_imagem)
-)
+id_imagem_pessoa INTEGER PRIMARY KEY NOT NULL,
+id_imagem INTEGER NOT NULL,
+CONSTRAINT FK_id_imagem FOREIGN KEY(id_imagem) REFERENCES Imagem (id_imagem)
+);
+
+CREATE TABLE Pessoa (
+cep VARCHAR(8) NOT NULL,
+bairro VARCHAR(100) NOT NULL,
+cidade VARCHAR(100) NOT NULL,
+estado VARCHAR(100) NOT NULL,
+rua VARCHAR(100) NOT NULL,
+numero VARCHAR(5) NOT NULL,
+id_pessoa INTEGER PRIMARY KEY NOT NULL,
+email VARCHAR(255) NOT NULL,
+colaboracao INTEGER NOT NULL,
+autenticidade INTEGER NOT NULL,
+senha VARCHAR(20) NOT NULL,
+login VARCHAR(20) NOT NULL,
+ativo CHAR(1) NOT NULL,
+nome_pessoa VARCHAR(255) NOT NULL,
+id_imagem_pessoa INTEGER NOT NULL,
+CONSTRAINT FK_id_imagem_pessoa FOREIGN KEY(id_imagem_pessoa) REFERENCES ImagemPessoa (id_imagem_pessoa)
+);
+
+CREATE TABLE Categoria (
+id_categoria INTEGER PRIMARY KEY NOT NULL,
+descricao VARCHAR(256) NOT NULL,
+nome_categoria VARCHAR(256) NOT NULL,
+id_pessoa INTEGER NOT NULL,
+CONSTRAINT FK_id_pessoa FOREIGN KEY(id_pessoa) REFERENCES Pessoa (id_pessoa)
+);
 
 CREATE TABLE ImagemCategoria (
-id_imagem_categoria VARCHAR(10) PRIMARY KEY,
-id_imagem INTEGER,
-id_categoria INTEGER,
-FOREIGN KEY(id_imagem) REFERENCES Imagem (id_imagem),
-FOREIGN KEY(id_categoria) REFERENCES Categoria (id_categoria)
-)
+id_imagem_categoria INTEGER PRIMARY KEY NOT NULL,
+id_imagem INTEGER NOT NULL,
+id_categoria INTEGER NOT NULL,
+CONSTRAINT FK_id_imagem FOREIGN KEY(id_imagem) REFERENCES Imagem (id_imagem),
+CONSTRAINT FK_id_categoria FOREIGN KEY(id_categoria) REFERENCES Categoria (id_categoria)
+);
+
+CREATE TABLE Lugar (
+long DECIMAL(10) NOT NULL,
+id_lugar INTEGER PRIMARY KEY NOT NULL,
+lat DECIMAL(10) NOT NULL,
+descricao VARCHAR(256) NOT NULL,
+nome_lugar VARCHAR(256) NOT NULL,
+id_pessoa INTEGER NOT NULL,
+id_categoria INTEGER NOT NULL,
+CONSTRAINT FK_id_pessoa FOREIGN KEY(id_pessoa) REFERENCES Pessoa (id_pessoa),
+CONSTRAINT FK_id_categoria FOREIGN KEY(id_categoria) REFERENCES Categoria (id_categoria)
+);
 
 CREATE TABLE ImagemLugar (
-id_imagem_lugar VARCHAR(10) PRIMARY KEY,
-id_imagem INTEGER,
-id_lugar INTEGER,
-FOREIGN KEY(id_imagem) REFERENCES Imagem (id_imagem),
-FOREIGN KEY(id_lugar) REFERENCES Lugar (id_lugar)
-)
+id_imagem_lugar INTEGER PRIMARY KEY NOT NULL,
+id_imagem INTEGER NOT NULL,
+id_lugar INTEGER NOT NULL,
+CONSTRAINT FK_id_imagem FOREIGN KEY(id_imagem) REFERENCES Imagem (id_imagem),
+CONSTRAINT FK_id_lugar FOREIGN KEY(id_lugar) REFERENCES Lugar (id_lugar)
+);
+
+CREATE TABLE Postagem (
+data DATETIME NOT NULL,
+id_postagem INTEGER PRIMARY KEY NOT NULL,
+postagem TEXT,
+id_lugar INTEGER NOT NULL,
+id_pessoa INTEGER NOT NULL,
+CONSTRAINT FK_id_lugar FOREIGN KEY(id_lugar) REFERENCES Lugar (id_lugar),
+CONSTRAINT FK_id_pessoa FOREIGN KEY(id_pessoa) REFERENCES Pessoa (id_pessoa)
+);
 
 CREATE TABLE ImagemPostagem (
-id_imagem_postagem VARCHAR(10) PRIMARY KEY,
-id_imagem INTEGER,
-id_postagem INTEGER,
-FOREIGN KEY(id_imagem) REFERENCES Imagem (id_imagem),
-FOREIGN KEY(id_postagem) REFERENCES Postagem (id_postagem)
-)
+id_imagem_postagem INTEGER PRIMARY KEY NOT NULL,
+id_imagem INTEGER NOT NULL,
+id_postagem INTEGER NOT NULL,
+CONSTRAINT FK_id_imagem FOREIGN KEY(id_imagem) REFERENCES Imagem (id_imagem),
+CONSTRAINT FK_id_postagem FOREIGN KEY(id_postagem) REFERENCES Postagem (id_postagem)
+);
 
-ALTER TABLE Cometarios ADD FOREIGN KEY(id_postagem) REFERENCES Postagem (id_postagem)
-ALTER TABLE Cometarios ADD FOREIGN KEY(id_pessoa) REFERENCES Pessoa (id_pessoa)
-ALTER TABLE Postagem ADD FOREIGN KEY(id_lugar) REFERENCES Lugar (id_lugar)
-ALTER TABLE Postagem ADD FOREIGN KEY(id_pessoa) REFERENCES Pessoa (id_pessoa)
-ALTER TABLE Categoria ADD FOREIGN KEY(id_pessoa) REFERENCES Pessoa (id_pessoa)
-ALTER TABLE Lugar ADD FOREIGN KEY(id_pessoa) REFERENCES Pessoa (id_pessoa)
-ALTER TABLE Avaliacao ADD FOREIGN KEY(id_pessoa) REFERENCES Pessoa (id_pessoa)
-ALTER TABLE Pessoa ADD FOREIGN KEY(id_imagem_pessoa) REFERENCES ImagemPessoa (id_imagem_pessoa)
+CREATE TABLE Cometarios (
+id_comentario INTEGER PRIMARY KEY NOT NULL,
+texto TEXT NOT NULL,
+id_postagem INTEGER NOT NULL,
+id_pessoa INTEGER NOT NULL,
+CONSTRAINT FK_id_postagem FOREIGN KEY(id_postagem) REFERENCES Postagem (id_postagem),
+CONSTRAINT FK_id_pessoa FOREIGN KEY(id_pessoa) REFERENCES Pessoa (id_pessoa)
+);
+
+CREATE TABLE Avaliacao (
+id_avaliacao INTEGER PRIMARY KEY NOT NULL,
+nota INTEGER NOT NULL,
+comentario TEXT NOT NULL,
+id_pessoa INTEGER NOT NULL,
+id_lugar INTEGER NOT NULL,
+CONSTRAINT FK_id_pessoa FOREIGN KEY(id_pessoa) REFERENCES Pessoa (id_pessoa),
+CONSTRAINT FK_id_lugar FOREIGN KEY(id_lugar) REFERENCES Lugar (id_lugar)
+);
